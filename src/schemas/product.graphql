@@ -1,0 +1,35 @@
+type ProductListingSchedule {
+  startDate: Date
+  endDate: Date
+}
+
+extend type Product {
+  productListingSchedule: ProductListingSchedule
+  availableFulfillmentDates: [Date]
+}
+
+input ProductListingScheduleInput {
+  startDate: Date
+  endDate: Date
+}
+
+extend input ProductInput {
+  productListingSchedule: ProductListingScheduleInput
+  availableFulfillmentDates: [Date]
+}
+
+extend type CatalogProduct {
+  productListingSchedule: ProductListingSchedule
+  availableFulfillmentDates: [Date]
+  isFavorite: Boolean
+}
+
+type ProductCategory implements Node {
+  _id: ID!
+  name: String!
+  image: String
+}
+
+extend type Mutation {
+  markProductAsFavorite(productId: ID!): Boolean
+}
