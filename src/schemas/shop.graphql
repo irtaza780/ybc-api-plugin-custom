@@ -1,0 +1,23 @@
+type FeaturedShopImages {
+  URLs: ImageSizes
+  priority: Int
+}
+
+input FeaturedShopImagesInput {
+  URLs: ImageSizesInput
+  priority: Int
+}
+
+extend type Shop {
+  featuredShopImages: [FeaturedShopImages]
+}
+
+extend input UpdateShopInput {
+  featuredShopImages: [FeaturedShopImagesInput]
+  isPickup: Boolean
+  categories: [String]
+}
+
+extend input CreateShopInput {
+  featuredShopImages: [FeaturedShopImagesInput]
+}

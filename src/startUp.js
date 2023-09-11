@@ -1,4 +1,4 @@
-import { productListingSchedule } from "./simpleSchemas.js";
+import { productListingSchedule, featuredShopImages } from "./simpleSchemas.js";
 
 function extendProductSchema(context) {
   context.simpleSchemas.Product.extend({
@@ -16,8 +16,35 @@ function extendProductSchema(context) {
   });
 }
 
+function extendCatalogProductVariantSchema(context) {
+  context.simpleSchemas.CatalogProductVariant.extend({
+    uploadedBy: {
+      type: String,
+      optional: true,
+    },
+    ancestorId: {
+      type: String,
+      optional: true,
+    },
+  });
+}
+
+function extendShopSchema(context) {
+  context.simpleSchemas.Shop.extend({
+    featuredShopImages: {
+      type: Array,
+      optional: true,
+    },
+    "featuredShopImages.$": {
+      type: featuredShopImages,
+    },
+  });
+}
+
 function schemaExtend(context) {
   extendProductSchema(context);
+  extendCatalogProductVariantSchema(context);
+  extendShopSchema(context);
 }
 
 export { schemaExtend };

@@ -3,7 +3,8 @@ import { schemaExtend } from "./startUp.js";
 import schemas from "./schemas/index.js";
 import resolvers from "./resolvers/index.js";
 import mutations from "./mutations/index.js";
-
+import queries from "./queries/index.js";
+import collections from "./collections.js";
 const require = createRequire(import.meta.url);
 const pkg = require("../package.json");
 
@@ -20,18 +21,12 @@ export default async function register(app) {
     functionsByType: {
       startup: [schemaExtend],
     },
-    collections: {
-      ProductCategories: {
-        name: "ProductCategories",
-      },
-      FavoriteProducts: {
-        name: "FavoriteProducts",
-      },
-    },
+    collections,
     graphQL: {
       resolvers,
       schemas,
     },
     mutations,
+    queries,
   });
 }
