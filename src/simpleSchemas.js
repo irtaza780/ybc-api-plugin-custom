@@ -38,6 +38,28 @@ const ImageSizes = new SimpleSchema({
   },
 });
 
+const options = new SimpleSchema({
+  optionLabel: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+  },
+});
+
+export const productAttributes = new SimpleSchema({
+  attribute: {
+    type: String,
+  },
+  options: {
+    type: Array,
+  },
+  "options.$": {
+    type: options,
+  },
+});
+
 export const featuredShopImages = new SimpleSchema({
   URLs: {
     type: ImageSizes,

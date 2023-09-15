@@ -1,4 +1,8 @@
-import { productListingSchedule, featuredShopImages } from "./simpleSchemas.js";
+import {
+  productListingSchedule,
+  featuredShopImages,
+  productAttributes,
+} from "./simpleSchemas.js";
 
 function extendProductSchema(context) {
   context.simpleSchemas.Product.extend({
@@ -12,6 +16,36 @@ function extendProductSchema(context) {
     },
     "availableFulfillmentDates.$": {
       type: Date,
+    },
+    productAttributes: {
+      type: Array,
+      optional: true,
+    },
+    "productAttributes.$": {
+      type: productAttributes,
+    },
+  });
+}
+
+function extendCatalogProductSchema(context) {
+  context.simpleSchemas.CatalogProduct.extend({
+    productListingSchedule: {
+      type: productListingSchedule,
+      optional: true,
+    },
+    availableFulfillmentDates: {
+      type: Array,
+      optional: true,
+    },
+    "availableFulfillmentDates.$": {
+      type: Date,
+    },
+    productAttributes: {
+      type: Array,
+      optional: true,
+    },
+    "productAttributes.$": {
+      type: productAttributes,
     },
   });
 }
@@ -42,9 +76,15 @@ function extendShopSchema(context) {
 }
 
 function schemaExtend(context) {
-  extendProductSchema(context);
-  extendCatalogProductVariantSchema(context);
+  //shop
   extendShopSchema(context);
+  //product
+  extendProductSchema(context);
+
+  //catalog
+  extendCatalogProductSchema(context);
+  //catalog variant
+  extendCatalogProductVariantSchema(context);
 }
 
 export { schemaExtend };

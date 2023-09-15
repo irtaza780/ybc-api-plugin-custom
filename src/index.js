@@ -5,6 +5,10 @@ import resolvers from "./resolvers/index.js";
 import mutations from "./mutations/index.js";
 import queries from "./queries/index.js";
 import collections from "./collections.js";
+
+//functions by type
+import { myPublishProductToCatalog } from "./functionsByType.js";
+
 const require = createRequire(import.meta.url);
 const pkg = require("../package.json");
 
@@ -20,6 +24,7 @@ export default async function register(app) {
     version: pkg.version,
     functionsByType: {
       startup: [schemaExtend],
+      publishProductToCatalog: [myPublishProductToCatalog],
     },
     collections,
     graphQL: {

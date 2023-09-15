@@ -3,9 +3,29 @@ type ProductListingSchedule {
   endDate: Date
 }
 
+type OptionsLabelTable {
+  optionLabel: String!
+  price: Float
+}
+input OptionsLabelTableInput {
+  optionLabel: String!
+  price: Float
+}
+# attributes against a product that can affect the product pricing
+type ProductAttributes {
+  attribute: String!
+  options: [OptionsLabelTable]!
+}
+
+input ProductAttributesInput {
+  attribute: String!
+  options: [OptionsLabelTableInput]!
+}
+
 extend type Product {
   productListingSchedule: ProductListingSchedule
   availableFulfillmentDates: [Date]
+  productAttributes: [ProductAttributes]
 }
 
 input ProductListingScheduleInput {
@@ -16,11 +36,13 @@ input ProductListingScheduleInput {
 extend input ProductInput {
   productListingSchedule: ProductListingScheduleInput
   availableFulfillmentDates: [Date]
+  productAttributes: [ProductAttributesInput]
 }
 
 extend type CatalogProduct {
   productListingSchedule: ProductListingSchedule
   availableFulfillmentDates: [Date]
+  productAttributes: [ProductAttributes]
   isFavorite: Boolean
 }
 
