@@ -1,0 +1,44 @@
+type Faq implements Node {
+  _id: ID!
+  title: String!
+  description: String!
+}
+
+type FaqConnection {
+  "The list of nodes that match the query, wrapped in an edge to provide a cursor string for each"
+  edges: [FaqEdge]
+
+  """
+  You can request the `nodes` directly to avoid the extra wrapping that `NodeEdge` has,
+  if you know you will not need to paginate the results.
+  """
+  nodes: [Faq]
+
+  "Information to help a client request the next or previous page"
+  pageInfo: PageInfo!
+
+  "The total number of nodes that match your query"
+  totalCount: Int!
+}
+
+"A connection edge in which each node is an `Faq` object"
+type FaqEdge implements NodeEdge {
+  "The cursor that represents this node in the paginated results"
+  cursor: ConnectionCursor!
+
+  "The faq"
+  node: Faq
+}
+
+input FaqInput {
+  title: String!
+  description: String!
+}
+
+extend type Mutation {
+  createFaq(input: FaqInput!): Faq
+}
+
+extend type Query {
+  faqs: FaqConnection
+}

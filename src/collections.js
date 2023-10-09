@@ -8,6 +8,12 @@ const collections = {
   ProductReviews: {
     name: "ProductReviews",
   },
+  Faq: {
+    name: "Faq",
+  },
+  CustomOrders: {
+    name: "CustomOrders",
+  },
 };
 
 export default collections;

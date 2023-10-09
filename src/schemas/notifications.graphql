@@ -1,0 +1,42 @@
+enum notificationTypes {
+  testType
+}
+
+enum notificationReadStatus {
+  unread
+  read
+}
+
+type Notification implements Node {
+  _id: ID!
+  title: String!
+  details: String!
+  content: String
+  readStatus: notificationReadStatus!
+  to: ID
+  from: ID
+  type: notificationTypes!
+  actionUrl: String
+  image: String
+  isCleared: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input createNotificationInput {
+  title: String!
+  details: String!
+  content: String
+  to: ID!
+  type: notificationTypes!
+  image: String
+  actionUrl: String
+}
+
+extend type Subscription {
+  notifications(accountId: ID!): Notification
+}
+
+extend type Mutation {
+  createNotification(input: createNotificationInput): Notification
+}
