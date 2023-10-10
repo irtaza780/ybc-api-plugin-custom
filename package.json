@@ -2,7 +2,7 @@
     "name": "ybc-api-plugin-custom",
     "description": "Boilerplate Example plugin for the Reaction API",
     "label": "Yct Api Plugin Custom",
-    "version": "1.3.1-development",
+    "version": "1.3.2-development",
     "main": "index.js",
     "type": "module",
     "engines": {

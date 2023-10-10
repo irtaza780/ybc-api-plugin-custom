@@ -3,11 +3,19 @@ import {
   decodeShopOpaqueId,
   encodeAccountOpaqueId,
   encodeShopOpaqueId,
-  } from "../xforms/id.js";
+} from "../xforms/id.js";
 import SimpleSchema from "simpl-schema";
 import generateReferenceId from "../util/generateReferenceId.js";
 import customOrderNotification from "../util/customOrderNotification.js";
 import Random from "@reactioncommerce/random";
+
+const InspirationMediaInput = new SimpleSchema({
+  large: String,
+  medium: String,
+  small: String,
+  original: String,
+  thumbnail: String,
+});
 
 const inputSchema = new SimpleSchema({
   itemName: String,
@@ -20,9 +28,27 @@ const inputSchema = new SimpleSchema({
     type: String,
     optional: true,
   },
+  inspirationMedia: {
+    type: Array,
+    optional: true,
+  },
+  "inspirationMedia.$": {
+    type: InspirationMediaInput,
+  },
   fulfillmentDate: Date,
 });
 
+function isMediaNull(obj) {
+  for (const key in obj) {
+    if (
+      Object.prototype.hasOwnProperty.call(obj, key) &&
+      (obj[key] === null || obj[key] === "")
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
 export default async function createCustomOrder(context, input) {
   inputSchema.validate(input);
 
@@ -38,7 +64,18 @@ export default async function createCustomOrder(context, input) {
     details,
     shopId,
     fulfillmentDate,
+    inspirationMedia,
   } = input;
+
+  if (inspirationMedia) {
+    const hasNullOrEmptyValues = inspirationMedia.some(isMediaNull);
+    if (hasNullOrEmptyValues) {
+      throw new ReactionError(
+        "invalid-argument",
+        "Inspiration Media cannot be empty"
+      );
+    }
+  }
 
   const decodedShopId = decodeShopOpaqueId(shopId);
 
@@ -65,6 +102,7 @@ export default async function createCustomOrder(context, input) {
     updatedAt: createdAt,
     fulfillmentDate,
     workflow: "created",
+    inspirationMedia,
   };
 
   const createdOrder = await CustomOrders.insertOne(customOrder);

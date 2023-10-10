@@ -12,6 +12,7 @@ type CustomOrder implements Node {
   fulfillmentDate: Date!
   workflow: WorkflowStatus
   rejectionReason: String
+  inspirationMedia: [ImageSizes]
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -58,6 +59,7 @@ input CustomOrderInput {
   shopId: String!
   occasion: String
   fulfillmentDate: Date!
+  inspirationMedia: [ImageSizesInput]
 }
 
 input UpdateCustomOrderInput {
