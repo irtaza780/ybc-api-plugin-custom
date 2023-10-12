@@ -38,7 +38,7 @@ async function customOrderEmail(
     fromShop: shop,
     templateName,
     language: shop.language,
-    to: bakerEmail,
+    to: "syedirtaza561@gmail.com",
   });
 }
 

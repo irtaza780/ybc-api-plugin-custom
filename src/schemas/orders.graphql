@@ -89,8 +89,24 @@ extend type Mutation {
   updateCustomOrder(input: UpdateCustomOrderInput!): CustomOrder
 }
 
+enum RangeFiltersEnum {
+  startDate
+  endDate
+}
+
+input CustomOrderRangeFilters {
+  name: RangeFiltersEnum
+  value: Date
+}
+
 extend type Query {
   customOrdersByShop(
+    "Search Query"
+    searchQuery: String
+
+    "filters"
+    rangeFilter: [CustomOrderRangeFilters]
+
     "Return only results that come after this cursor. Use this with `first` to specify the number of results to return."
     after: ConnectionCursor
 

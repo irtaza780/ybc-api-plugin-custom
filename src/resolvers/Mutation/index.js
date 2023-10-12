@@ -12,6 +12,9 @@ import createNotification from "./createNotification.js";
 import createCustomOrder from "./createCustomOrder.js";
 import updateCustomOrder from "./updateCustomOrder.js";
 
+//Reviews
+import createReview from "./createReview.js";
+
 export default {
   markProductAsFavorite,
   addProductCategory,
@@ -19,4 +22,5 @@ export default {
   createNotification,
   createCustomOrder,
   updateCustomOrder,
+  createReview,
 };

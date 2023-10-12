@@ -85,41 +85,11 @@ input ProductCategoryInput {
   image: String
 }
 
-type ProductReview implements Node {
-  _id: ID!
-
-  "user who created the review"
-  reviewBy: ID!
-
-  "product against which review is made"
-  productId: ID!
-
-  "value rated"
-  rating: Int!
-
-  "review comment"
-  comment: String
-
-  "createdAt"
-  createdAt: DateTime
-
-  "updatedAt"
-  updatedAt: DateTime
-}
-
-input ProductReviewInput {
-  reviewBy: ID!
-  productId: ID!
-  rating: Int!
-  comment: String
-}
 
 extend type Mutation {
   markProductAsFavorite(productId: ID!, shopId: ID!): Boolean
   addProductCategory(input: ProductCategoryInput!): ProductCategory
   updateProductCategory(input: ProductCategoryInput!): ProductCategory
-  "create a review for a product (ybc-api-plugin-custom)"
-  createReviewForProduct(input: ProductReviewInput!): ProductReview
 }
 
 extend type Query {

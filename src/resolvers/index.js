@@ -8,10 +8,14 @@ import CatalogProduct from "./CatalogProduct/index.js";
 //Orders
 import CustomOrder from "./CustomOrder/index.js";
 
+//Cart
+import CartItem from "./CartItem/index.js";
+
 export default {
   CatalogProduct,
   Mutation,
   Query,
   Subscription,
   CustomOrder,
+  CartItem,
 };

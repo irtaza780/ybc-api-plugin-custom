@@ -92,7 +92,7 @@ export default async function createCustomOrder(context, input) {
     _id: Random.id(),
     itemName,
     referenceId: orderReference,
-    email,
+    email: email.toLowerCase(),
     phoneNumber,
     quantity,
     details,

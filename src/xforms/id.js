@@ -20,6 +20,7 @@ export const encodeFulfillmentGroupOpaqueId = encodeOpaqueId(
   namespaces.FulfillmentGroup
 );
 export const encodeShopOpaqueId = encodeOpaqueId(namespaces.Shop);
+export const encodeProductOpaqueId = encodeOpaqueId(namespaces.Product);
 
 export const decodeAccountOpaqueId = decodeOpaqueIdForNamespace(
   namespaces.Account

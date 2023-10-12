@@ -5,14 +5,14 @@ const collections = {
   FavoriteProducts: {
     name: "FavoriteProducts",
   },
-  ProductReviews: {
-    name: "ProductReviews",
-  },
   Faq: {
     name: "Faq",
   },
   CustomOrders: {
     name: "CustomOrders",
+  },
+  Reviews: {
+    name: "Reviews",
   },
 };
 
