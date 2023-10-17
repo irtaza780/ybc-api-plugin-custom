@@ -1,5 +1,12 @@
 import SimpleSchema from "simpl-schema";
 import ReactionError from "@reactioncommerce/reaction-error";
+import _ from "lodash";
+
+const CustomOrderPricing = new SimpleSchema({
+  totalItemsPrice: Number,
+  isTaxable: Boolean,
+  tax: Number,
+});
 
 const inputSchema = new SimpleSchema({
   orderId: {
@@ -40,6 +47,10 @@ const inputSchema = new SimpleSchema({
     type: String,
     optional: true,
   },
+  pricing: {
+    type: CustomOrderPricing,
+    optional: true,
+  },
 });
 
 export default async function updateCustomOrder(context, input) {
@@ -58,52 +69,69 @@ export default async function updateCustomOrder(context, input) {
     fulfillmentDate,
     rejectionReason,
     workflow,
+    pricing,
   } = input;
 
   let updates = {};
 
-  if (typeof itemName === "string" || itemName === null) {
+  console.log("input ", input);
+
+  if (typeof itemName === "string" || itemName !== null) {
     updates.itemName = itemName;
   }
 
-  if (typeof phoneNumber === "string" || phoneNumber === null) {
+  if (typeof phoneNumber === "string" || phoneNumber !== null) {
     updates.phoneNumber = phoneNumber;
   }
 
-  if (typeof quantity === "number" || quantity === null || quantity === 0) {
+  if (typeof quantity === "number" || quantity !== null || quantity > 0) {
+    console.log("quantity check type", typeof quantity);
+    console.log("quantity check", quantity);
     updates.quantity = quantity;
   }
 
-  if (typeof details === "string" || details === null) {
+  if (typeof details === "string") {
     updates.details = details;
   }
 
-  if (typeof occasion === "string" || occasion === null) {
+  if (typeof occasion === "string") {
     updates.occasion = occasion;
   }
 
-  if (typeof fulfillmentDate === "string" || fulfillmentDate === null) {
+  if (typeof fulfillmentDate === "string") {
     updates.fulfillmentDate = fulfillmentDate;
   }
 
-  if (typeof rejectionReason === "string" || rejectionReason === null) {
+  if (typeof rejectionReason === "string") {
     updates.rejectionReason = rejectionReason;
   }
 
-  if (typeof workflow === "string" || workflow === null) {
-    if (workflow === "rejected" && updates.rejectionReason == null) {
+  if (typeof workflow === "string") {
+    if (workflow === "rejected" && typeof rejectionReason !== "string") {
       throw new ReactionError(
         "invalid-argument",
         "Rejection reason is required "
       );
     }
 
-    await context.validatePermissions(
-      `reaction:legacy:shops:${shopId}`,
-      "update",
-      { shopId }
-    );
+    if (workflow === "approved" && _.isEmpty(pricing)) {
+      throw new ReactionError(
+        "invalid-argument",
+        "pricing is required when approving order "
+      );
+    }
+
+    // await context.validatePermissions(
+    //   `reaction:legacy:shops:${shopId}`,
+    //   "update",
+    //   { shopId }
+    // );
+
     updates.workflow = workflow;
+  }
+
+  if (typeof pricing === "object" || !_.isEmpty(pricing)) {
+    updates.pricing = pricing;
   }
 
   if (Object.keys(updates).length === 0) {
