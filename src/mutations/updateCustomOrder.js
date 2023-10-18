@@ -76,15 +76,15 @@ export default async function updateCustomOrder(context, input) {
 
   console.log("input ", input);
 
-  if (typeof itemName === "string" || itemName !== null) {
+  if (typeof itemName === "string" ) {
     updates.itemName = itemName;
   }
 
-  if (typeof phoneNumber === "string" || phoneNumber !== null) {
+  if (typeof phoneNumber === "string" ) {
     updates.phoneNumber = phoneNumber;
   }
 
-  if (typeof quantity === "number" || quantity !== null || quantity > 0) {
+  if (typeof quantity === "number" || quantity > 0) {
     console.log("quantity check type", typeof quantity);
     console.log("quantity check", quantity);
     updates.quantity = quantity;
@@ -133,6 +133,8 @@ export default async function updateCustomOrder(context, input) {
   if (typeof pricing === "object" || !_.isEmpty(pricing)) {
     updates.pricing = pricing;
   }
+
+  console.log("updates are ", updates);
 
   if (Object.keys(updates).length === 0) {
     throw new ReactionError(
