@@ -12,7 +12,10 @@ import Random from "@reactioncommerce/random";
 
 const inputSchema = new SimpleSchema({
   shopId: String,
-  productId: String,
+  productId: {
+    type: String,
+    optional: true,
+  },
   reviewType: String,
   rating: Number,
   title: {
@@ -30,7 +33,7 @@ export default async function createReview(context, input) {
 
   const { userId, authToken, collections } = context;
 
-  const { Reviews, Shops } = collections;
+  const { Reviews, Shops, Catalog } = collections;
 
   const { shopId, productId, reviewType, rating, title, description } = input;
 
@@ -42,7 +45,13 @@ export default async function createReview(context, input) {
   }
 
   const decodedShopId = decodeShopOpaqueId(shopId);
-  const decodedProductId = decodeProductOpaqueId(productId);
+  // const decodedProductId = decodeProductOpaqueId(productId);
+
+  const { product } = await Catalog.findOne({
+    "product.slug": productId,
+  });
+
+  const decodedProductId = product._id
 
   const shop = await Shops.findOne({ _id: decodedShopId });
   if (!shop) throw new ReactionError("access-denied", "Invalid Shop");
@@ -67,6 +76,7 @@ export default async function createReview(context, input) {
     createdAt,
     updatedAt: createdAt,
   };
+  console.log("review obj is ", review)
 
   const createdReview = await Reviews.insertOne(review);
 

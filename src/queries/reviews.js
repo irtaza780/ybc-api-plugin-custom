@@ -3,7 +3,7 @@ import { decodeProductOpaqueId, decodeShopOpaqueId } from "../xforms/id.js";
 
 export default async function reviews(context, input) {
   const { collections } = context;
-  const { Reviews } = collections;
+  const { Reviews, Catalog } = collections;
   const { productId, shopId } = input;
 
   const filter = {};
@@ -13,7 +13,10 @@ export default async function reviews(context, input) {
   }
 
   if (productId) {
-    filter["productId"] = decodeProductOpaqueId(productId);
+    const { product } = await Catalog.findOne({ "product.slug": productId });
+    if (product) {
+      filter["productId"] = decodeProductOpaqueId(product._id);
+    }
   }
 
   const reviews = Reviews.find(filter);
