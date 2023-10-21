@@ -11,6 +11,9 @@ import CustomOrder from "./CustomOrder/index.js";
 //Cart
 import CartItem from "./CartItem/index.js";
 
+//Review
+import Review from "./Review/index.js";
+
 export default {
   CatalogProduct,
   Mutation,
@@ -18,4 +21,5 @@ export default {
   Subscription,
   CustomOrder,
   CartItem,
+  Review,
 };

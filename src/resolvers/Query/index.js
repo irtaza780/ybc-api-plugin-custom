@@ -7,10 +7,19 @@ import faqs from "./faqs.js";
 
 //Orders
 import customOrdersByShop from "./customOrdersByShop.js";
+import customOrderByOrderId from "./customOrderByOrderId.js";
+import getFlatRateFulfillmentByShopId from "./getFlatRateFulfillmentByShopId.js";
+
+//reviews
+
+import reviews from "./reviews.js";
 
 export default {
   productCategories,
   faqs,
   customOrdersByShop,
-  favoriteProducts
+  favoriteProducts,
+  getFlatRateFulfillmentByShopId,
+  customOrderByOrderId,
+  reviews,
 };

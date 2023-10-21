@@ -10,6 +10,7 @@ const namespaces = {
   Product: "reaction/product",
   Shop: "reaction/shop",
   Tag: "reaction/tag",
+  Order: "reaction/order",
 };
 
 export const encodeAccountOpaqueId = encodeOpaqueId(namespaces.Account);
@@ -19,6 +20,8 @@ export const encodeCartOpaqueId = encodeOpaqueId(namespaces.Cart);
 export const encodeFulfillmentGroupOpaqueId = encodeOpaqueId(
   namespaces.FulfillmentGroup
 );
+
+export const encodeOrderOpaqueId = encodeOpaqueId(namespaces.Order);
 export const encodeShopOpaqueId = encodeOpaqueId(namespaces.Shop);
 export const encodeProductOpaqueId = encodeOpaqueId(namespaces.Product);
 
@@ -42,3 +45,5 @@ export const decodeProductOpaqueId = decodeOpaqueIdForNamespace(
 export const decodeShopOpaqueId = decodeOpaqueIdForNamespace(namespaces.Shop);
 
 export const decodeTagOpaqueId = decodeOpaqueIdForNamespace(namespaces.Tag);
+
+export const decodeOrderOpaqueId = decodeOpaqueIdForNamespace(namespaces.Order);

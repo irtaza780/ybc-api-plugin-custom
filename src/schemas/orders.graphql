@@ -142,4 +142,10 @@ extend type Query {
     "By default, groups are sorted by when they were created, oldest first. Set this to sort by one of the other allowed fields"
     sortBy: CustomOrderSortByField = createdAt
   ): CustomOrderConnection
+
+  getFlatRateFulfillmentByShopId(
+    shopId: ID!
+  ): FlatRateFulfillmentMethodConnection!
+
+  customOrderByOrderId(orderId: ID!, shopId: ID!): CustomOrder
 }

@@ -3,6 +3,7 @@ import {
   decodeShopOpaqueId,
   encodeAccountOpaqueId,
   encodeShopOpaqueId,
+  encodeOrderOpaqueId,
 } from "../xforms/id.js";
 import SimpleSchema from "simpl-schema";
 import generateReferenceId from "../util/generateReferenceId.js";
@@ -125,5 +126,8 @@ export default async function createCustomOrder(context, input) {
     );
   }
 
+  customOrder["_id"] = encodeOrderOpaqueId(customOrder._id);
+
+  console.log("custom order new is ", customOrder);
   return customOrder;
 }
