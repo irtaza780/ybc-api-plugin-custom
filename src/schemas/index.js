@@ -6,7 +6,6 @@ const faq = importAsString("./faq.graphql");
 const notifications = importAsString("./notifications.graphql");
 const orders = importAsString("./orders.graphql");
 const cart = importAsString("./cart.graphql");
-
 const review = importAsString("./review.graphql");
 
 export default [product, shop, faq, notifications, orders, cart, review];

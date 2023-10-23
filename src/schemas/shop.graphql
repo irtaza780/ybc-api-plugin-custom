@@ -10,6 +10,8 @@ input FeaturedShopImagesInput {
 
 extend type Shop {
   featuredShopImages: [FeaturedShopImages]
+  "tax rate applicable to the shop"
+  taxRate: Float
 }
 
 extend input UpdateShopInput {

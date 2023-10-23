@@ -14,6 +14,9 @@ import CartItem from "./CartItem/index.js";
 //Review
 import Review from "./Review/index.js";
 
+//Shop
+import Shop from "./Shop/index.js";
+
 export default {
   CatalogProduct,
   Mutation,
@@ -22,4 +25,5 @@ export default {
   CustomOrder,
   CartItem,
   Review,
+  Shop,
 };
