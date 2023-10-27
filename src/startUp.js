@@ -16,6 +16,7 @@ function extendProductSchema(context) {
     },
     "availableFulfillmentDates.$": {
       type: Date,
+      optional: true
     },
     productAttributes: {
       type: Array,

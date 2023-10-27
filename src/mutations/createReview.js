@@ -43,15 +43,17 @@ export default async function createReview(context, input) {
       "Rating value cannot be less than 1 or greater than 5 "
     );
   }
-
+  let decodedProductId = "";
   const decodedShopId = decodeShopOpaqueId(shopId);
   // const decodedProductId = decodeProductOpaqueId(productId);
 
-  const { product } = await Catalog.findOne({
-    "product.slug": productId,
-  });
+  if (productId) {
+    const { product } = await Catalog.findOne({
+      "product.slug": productId,
+    });
 
-  const decodedProductId = product._id
+    decodedProductId = product._id;
+  }
 
   const shop = await Shops.findOne({ _id: decodedShopId });
   if (!shop) throw new ReactionError("access-denied", "Invalid Shop");
@@ -76,7 +78,7 @@ export default async function createReview(context, input) {
     createdAt,
     updatedAt: createdAt,
   };
-  console.log("review obj is ", review)
+  console.log("review obj is ", review);
 
   const createdReview = await Reviews.insertOne(review);
 
