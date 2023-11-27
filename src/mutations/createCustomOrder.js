@@ -84,7 +84,7 @@ export default async function createCustomOrder(context, input) {
   if (!shop) throw new ReactionError("access-denied", "Invalid Shop");
 
   if (!userId || !authToken)
-    throw new ReactionError("access-denied", "Access Denied");
+    throw new ReactionError("access-denied", "Invalid user or token");
 
   const createdAt = new Date();
   const orderReference = generateReferenceId();

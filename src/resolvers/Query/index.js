@@ -9,6 +9,7 @@ import faqs from "./faqs.js";
 import customOrdersByShop from "./customOrdersByShop.js";
 import customOrderByOrderId from "./customOrderByOrderId.js";
 import getFlatRateFulfillmentByShopId from "./getFlatRateFulfillmentByShopId.js";
+import customOrdersByUser from "./customOrdersByUser.js";
 
 //reviews
 
@@ -21,5 +22,6 @@ export default {
   favoriteProducts,
   getFlatRateFulfillmentByShopId,
   customOrderByOrderId,
+  customOrdersByUser,
   reviews,
 };
