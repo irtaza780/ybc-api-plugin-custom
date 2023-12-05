@@ -10,6 +10,7 @@ import customOrdersByShop from "./customOrdersByShop.js";
 import customOrderByOrderId from "./customOrderByOrderId.js";
 import getFlatRateFulfillmentByShopId from "./getFlatRateFulfillmentByShopId.js";
 import customOrdersByUser from "./customOrdersByUser.js";
+import userCustomOrderByOrderId from "./userCustomOrderByOrderId.js";
 
 //reviews
 
@@ -24,4 +25,5 @@ export default {
   customOrderByOrderId,
   customOrdersByUser,
   reviews,
+  userCustomOrderByOrderId,
 };

@@ -85,7 +85,6 @@ input ProductCategoryInput {
   image: String
 }
 
-
 extend type Mutation {
   markProductAsFavorite(productId: ID!, shopId: ID!): Boolean
   addProductCategory(input: ProductCategoryInput!): ProductCategory

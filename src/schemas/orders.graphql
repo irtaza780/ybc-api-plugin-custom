@@ -150,6 +150,8 @@ extend type Query {
 
   customOrderByOrderId(orderId: ID!, shopId: ID!): CustomOrder
 
+  userCustomOrderByOrderId(orderId: ID!): CustomOrder
+
   customOrdersByUser(
     "Search Query"
     searchQuery: String
