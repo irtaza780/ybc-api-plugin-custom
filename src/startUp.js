@@ -4,6 +4,8 @@ import {
   productAttributes,
 } from "./simpleSchemas.js";
 
+import customOrderNotification from "./util/customOrderNotification.js";
+
 function extendProductSchema(context) {
   context.simpleSchemas.Product.extend({
     productListingSchedule: {
@@ -87,4 +89,13 @@ function schemaExtend(context) {
   extendCatalogProductVariantSchema(context);
 }
 
-export { schemaExtend };
+function sendCustomOrderNotification(context) {
+  const { appEvents } = context;
+  appEvents.on("afterCustomOrderCreate", (data) => {
+    customOrderNotification(context, data);
+  });
+}
+
+const startupFunctions = [schemaExtend, sendCustomOrderNotification];
+
+export default startupFunctions;

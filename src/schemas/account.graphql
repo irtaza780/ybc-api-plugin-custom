@@ -1,0 +1,8 @@
+enum BakerTypeEnum {
+  Basic
+  Premium
+}
+
+extend type Account {
+  bakerType: String
+}

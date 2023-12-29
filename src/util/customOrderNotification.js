@@ -48,16 +48,19 @@ async function customOrderPush(context) {
   console.log("custom notification");
 }
 
-export default async function customOrderNotification(
-  context,
-  shopId,
-  decodedShopId,
-  orderReference,
-  itemName,
-  quantity,
-  dateOfPlacement,
-  fulfillmentDate
-) {
+export default async function customOrderNotification(context, data) {
+  console.log("coming to function", data);
+
+  const {
+    shopId,
+    decodedShopId,
+    orderReference,
+    itemName,
+    quantity,
+    dateOfPlacement,
+    fulfillmentDate,
+  } = data;
+
   const { Accounts } = context.collections;
 
   //baker

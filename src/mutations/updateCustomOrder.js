@@ -74,19 +74,15 @@ export default async function updateCustomOrder(context, input) {
 
   let updates = {};
 
-  console.log("input ", input);
-
-  if (typeof itemName === "string" ) {
+  if (typeof itemName === "string") {
     updates.itemName = itemName;
   }
 
-  if (typeof phoneNumber === "string" ) {
+  if (typeof phoneNumber === "string") {
     updates.phoneNumber = phoneNumber;
   }
 
   if (typeof quantity === "number" || quantity > 0) {
-    console.log("quantity check type", typeof quantity);
-    console.log("quantity check", quantity);
     updates.quantity = quantity;
   }
 
@@ -148,8 +144,10 @@ export default async function updateCustomOrder(context, input) {
       ...updates,
       updatedAt: new Date(),
     },
+    $push: {
+      orderHistory: updates,
+    },
   };
-
   const { value: updatedOrder } = await CustomOrders.findOneAndUpdate(
     {
       _id: orderId,
@@ -160,7 +158,7 @@ export default async function updateCustomOrder(context, input) {
     }
   );
 
-  console.log("update custom order result is ", updatedOrder);
+  console.log("updated order is ", updatedOrder);
 
   return updatedOrder;
 }

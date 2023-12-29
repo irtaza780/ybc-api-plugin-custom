@@ -2,6 +2,9 @@ import Mutation from "./Mutation/index.js";
 import Query from "./Query/index.js";
 import Subscription from "./Subscription/index.js";
 
+//Account
+import Account from "./Account/index.js";
+
 //Products
 import CatalogProduct from "./CatalogProduct/index.js";
 
@@ -26,4 +29,5 @@ export default {
   CartItem,
   Review,
   Shop,
+  Account
 };

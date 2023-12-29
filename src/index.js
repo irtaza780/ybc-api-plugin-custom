@@ -1,5 +1,5 @@
 import { createRequire } from "module";
-import { schemaExtend } from "./startUp.js";
+import startupFunctions from "./startUp.js";
 import schemas from "./schemas/index.js";
 import resolvers from "./resolvers/index.js";
 import mutations from "./mutations/index.js";
@@ -23,7 +23,7 @@ export default async function register(app) {
     name: pkg.name,
     version: pkg.version,
     functionsByType: {
-      startup: [schemaExtend],
+      startup: startupFunctions,
       publishProductToCatalog: [myPublishProductToCatalog],
     },
     collections,

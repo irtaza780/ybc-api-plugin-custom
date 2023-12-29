@@ -7,7 +7,7 @@ import {
 } from "../xforms/id.js";
 import SimpleSchema from "simpl-schema";
 import generateReferenceId from "../util/generateReferenceId.js";
-import customOrderNotification from "../util/customOrderNotification.js";
+// import customOrderNotification from "../util/customOrderNotification.js";
 import Random from "@reactioncommerce/random";
 
 const InspirationMediaInput = new SimpleSchema({
@@ -50,10 +50,11 @@ function isMediaNull(obj) {
   }
   return false;
 }
+
 export default async function createCustomOrder(context, input) {
   inputSchema.validate(input);
 
-  const { userId, authToken, collections } = context;
+  const { userId, authToken, collections, appEvents } = context;
 
   const { CustomOrders, Shops } = collections;
 
@@ -104,6 +105,7 @@ export default async function createCustomOrder(context, input) {
     fulfillmentDate,
     workflow: "created",
     inspirationMedia,
+    orderHistory: [details, fulfillmentDate, quantity],
   };
 
   const createdOrder = await CustomOrders.insertOne(customOrder);
@@ -113,21 +115,20 @@ export default async function createCustomOrder(context, input) {
   customOrder["shopId"] = encodeShopOpaqueId(decodedShopId);
 
   if (createdOrder?.result?.n > 0) {
-    await customOrderNotification(
-      context,
+    // await customOrderNotification();
+    const data = {
       shopId,
       decodedShopId,
       orderReference,
-      //item name
       itemName,
       quantity,
       createdAt,
-      fulfillmentDate
-    );
+      fulfillmentDate,
+    };
+    await appEvents.emit("afterCustomOrderCreate", data);
   }
 
   customOrder["_id"] = encodeOrderOpaqueId(customOrder._id);
 
-  console.log("custom order new is ", customOrder);
   return customOrder;
 }
